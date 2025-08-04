@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>✨ Personality Insight</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    h1 {
+      font-size: 6vw;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    h2 {
+      font-size: 5vw;
+      margin-bottom: 25px;
+      color: #fff;
+    }
+
+    select, button {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px 16px;
+      font-size: 4.5vw;
+      border-radius: 12px;
+      border: none;
+      margin-bottom: 20px;
+      font-weight: bold;
+      font-family: inherit;
+    }
+
+    select {
+      background-color: #ffffffcc;
+      color: #444;
+    }
+
+    button {
+      background: linear-gradient(to right, #36d1dc, #5b86e5);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #5b86e5, #36d1dc);
+    }
+
+    .result {
+      margin-top: 20px;
+      text-align: left;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 15px;
+      border-radius: 15px;
+      font-size: 4vw;
+      line-height: 1.5;
+    }
+
+    strong {
+      color: #ffeaa7;
+    }
+
+    @media screen and (min-width: 600px) {
+      h1, h2 { font-size: 24px; }
+      select, button, .result { font-size: 16px; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>👋 Hi guys, my name is <span style="color:#f33a3a;">Devv</span>.</h1>
+    <h2>🔤 What is the first letter of your name?</h2>
+
+    <select id="letter">
+      <option value="">✨ Select a Letter ✨</option>
+      <script>
+        for (let i = 65; i <= 90; i++) {
+          const letter = String.fromCharCode(i);
+          document.write(`<option value="${letter}">${letter}</option>`);
+        }
+      </script>
+    </select>
+
+    <button onclick="showPersonality()">🚀 Submit</button>
+
+    <div class="result" id="resultBox" style="display: none;"></div>
+  </div>
+
+  <script>
+    const personalityData = {
+
+      A: {
+  behavior: "🔥 Ambitious and Driven",
+  strength: "🚀 Natural Leader",
+  emotion: "😌 You hide your emotions behind confidence.",
+  insight: "🎯 Don’t let pride block genuine connection."
+},
+B: {
+  behavior: "🎨 Balanced and Artistic",
+  strength: "💖 Deeply Compassionate",
+  emotion: "😢 You often carry others’ pain silently.",
+  insight: "🌱 Give your own heart the healing it offers others."
+},
+C: {
+  behavior: "💬 Communicative and Clever",
+  strength: "🧠 Sharp Thinker",
+  emotion: "😕 Sometimes overwhelmed by overthinking.",
+  insight: "🌊 Let go of what you can't control."
+},
+D: {
+  behavior: "💪 Determined and Loyal",
+  strength: "🛡️ Protector at Heart",
+  emotion: "😠 Anger hides your inner wounds.",
+  insight: "💬 Talk before silence becomes distance."
+},
+E: {
+  behavior: "⚡ Energetic and Bold",
+  strength: "🎯 Focused Visionary",
+  emotion: "😞 You fear being left behind.",
+  insight: "🪞Success means nothing without peace inside."
+},
+F: {
+  behavior: "🌸 Friendly and Honest",
+  strength: "🔐 Loyal to the Core",
+  emotion: "🥺 You get hurt when your kindness is taken for granted.",
+  insight: "🎭 Not everyone is as real as you."
+},
+G: {
+  behavior: "🧲 Grounded and Charming",
+  strength: "🌟 Natural Influencer",
+  emotion: "😬 You suppress emotions to stay strong.",
+  insight: "🧘‍♂️ Vulnerability is not weakness."
+},
+H: {
+  behavior: "🎯 Hardworking and Humble",
+  strength: "🛠️ Silent Achiever",
+  emotion: "😓 You don't ask for help even when you need it.",
+  insight: "🗣️ Speak your needs — you're allowed to."
+},
+I: {
+  behavior: "🌙 Intuitive and Quiet",
+  strength: "🔮 Deep Thinker",
+  emotion: "😔 You often feel misunderstood.",
+  insight: "🧩 Your silence has stories — choose who deserves to hear them."
+},
+J: {
+  behavior: "🎉 Joyful and Clever",
+  strength: "🏆 Quick Decision-Maker",
+  emotion: "😐 You hide sadness with humor.",
+  insight: "🎭 Smiling doesn’t mean you’re okay. Share."
+},
+K: {
+  behavior: "🧭 Kind and Curious",
+  strength: "🪄 Empathetic Listener",
+  emotion: "😕 Easily influenced by emotions of others.",
+  insight: "🪷 Protect your peace — it’s precious."
+},
+L: {
+  behavior: "🦋 Loving and Loyal",
+  strength: "❤️ Emotionally Strong",
+  emotion: "😭 You care deeply, even when it hurts.",
+  insight: "🌈 Sometimes loving means letting go."
+},
+M: {
+  behavior: "🧠 Mindful and Mature",
+  strength: "🛡️ Inner Strength",
+  emotion: "😩 You expect too much from yourself.",
+  insight: "🌿 Rest is productive too."
+},
+N: {
+  behavior: "🎯 Noble and Natural",
+  strength: "💡 Thoughtful Innovator",
+  emotion: "😕 You bottle up too much inside.",
+  insight: "🌬️ Release before you explode."
+},
+O: {
+  behavior: "💡 Optimistic and Open",
+  strength: "🌞 Brings Light to Others",
+  emotion: "🥹 Too trusting at times.",
+  insight: "🔍 Not every smile is sincere."
+},
+P: {
+  behavior: "🎭 Playful yet Profound",
+  strength: "🧩 Multifaceted Mind",
+  emotion: "😶 You fear being truly seen.",
+  insight: "🔓 Don’t shrink to make others comfortable."
+},
+Q: {
+  behavior: "🧚‍♂️ Quiet yet Radiant",
+  strength: "🔍 Deep Observer",
+  emotion: "😯 Keeps wounds well hidden.",
+  insight: "💌 Someone out there understands. Trust a little."
+},
+R: {
+  behavior: "🏹 Real and Resilient",
+  strength: "🛡️ Doesn’t Quit Easily",
+  emotion: "😔 Often taken for granted.",
+  insight: "🌪️ Not everyone deserves your fight."
+},
+S: {
+  behavior: "🌊 Sensitive and Strong",
+  strength: "🕊️ Peacemaker",
+  emotion: "😓 You absorb energy like a sponge.",
+  insight: "🔒 Set emotional boundaries."
+},
+T: {
+  behavior: "🧠 Tactical and Kind",
+  strength: "🧭 Natural Guide",
+  emotion: "😤 Hides stress behind control.",
+  insight: "🪞 Trust doesn’t mean control."
+},
+U: {
+  behavior: "🌌 Unique and Unapologetic",
+  strength: "🌀 Sees what others miss",
+  emotion: "😢 Feels alien sometimes.",
+  insight: "🫂 You belong — just not everywhere."
+},
+V: {
+  behavior: "⚖️ Visionary and Grounded",
+  strength: "🏗️ Builder of Dreams",
+  emotion: "😞 Afraid of failure silently.",
+  insight: "📖 Every fall is a story worth telling."
+},
+W: {
+  behavior: "🔥 Wild and Wise",
+  strength: "🎯 Focused Rebel",
+  emotion: "😬 Often misunderstood as careless.",
+  insight: "📍Freedom doesn't mean isolation."
+},
+X: {
+  behavior: "🧿 Mysterious and Magnetic",
+  strength: "🛸 Thinks Differently",
+  emotion: "😶 Bottled-up chaos.",
+  insight: "🪙 Being rare is your magic — own it."
+},
+Y: {
+  behavior: "🌱 Youthful and Yearning",
+  strength: "🔋 Never Gives Up",
+  emotion: "🥺 Hopes deeply, hurts silently.",
+  insight: "🧠 Hope with caution — not everyone has your heart."
+},
+Z: {
+  behavior: "⚡ Zealous and Brave",
+  strength: "🛡️ Fierce Defender",
+  emotion: "😡 Hurt turns to anger quickly.",
+  insight: "🌤️ Heal, don’t harde."
+
+    },
+  }
+
+    function showPersonality() {
+      const selected = document.getElementById("letter").value.toUpperCase();
+      const data = personalityData[selected] || personalityData["default"];
+      const result = `
+        <strong>Behavior:</strong> ${data.behavior}<br>
+        <strong>Strength:</strong> ${data.strength}<br>
+        <strong>Emotional Insight:</strong> ${data.emotion}<br>
+        <strong>Advice:</strong> ${data.insight}
+      `;
+      const resultBox = document.getElementById("resultBox");
+      resultBox.innerHTML = result;
+      resultBox.style.display = "block";
+    }
+  </script>
+</body>
+</html>
